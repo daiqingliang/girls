@@ -57,6 +57,7 @@ public class GirlController {
 //		girl.setAge(girl.getAge());
 		return ResultUtil.success(girlRepository.save(girl));
 	}
+
 	//查询一个女生
 	@GetMapping(value = "/girls/{id}")
 	public Girl girlFindOne(@PathVariable("id") Integer id) {

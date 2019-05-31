@@ -17,12 +17,12 @@ public class HelloController {
 	
 	@Value("${cupSize}")
 	private String cupSize;
-	
+
 //	@RequestMapping(value = {"/hello","/hi"}, method = RequestMethod.GET)
+//  method = RequestMethod.POST 不写的时候，get和post都可以
 	@GetMapping(value = {"/hello","/hi"})
-	//method = RequestMethod.POST 不写的时候，get和post都可以
 	public String say(@RequestParam(value = "id", required = false, defaultValue = "0") Integer id) {
 		return girlProperties.getCupSize() + "--" + cupSize + "--ID:" + id;
 	}
-	
+
 }
