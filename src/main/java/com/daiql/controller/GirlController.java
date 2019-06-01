@@ -7,6 +7,10 @@ import com.daiql.domain.Result;
 import com.daiql.repository.GirlRepository;
 import com.daiql.service.GirlService;
 import com.daiql.utils.ResultUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +30,7 @@ import javax.validation.Valid;
  */
 
 @RestController
+@Api(tags = "女生列表接口")
 public class GirlController {
 	
 	@Autowired
@@ -39,6 +44,7 @@ public class GirlController {
 	 * @return list
 	 */
 	@GetMapping(value = "/girls")
+    @ApiOperation(value = "获取所有女生列表")
 	public List<Girl> girlList() {
 		return girlRepository.findAll();
 	}
@@ -49,6 +55,7 @@ public class GirlController {
 	 * @return Girl
 	 */
 	@PostMapping(value = "/girls")
+    @ApiOperation(value = "添加一个女生")
 	public Result<Girl> girlAdd(@Valid Girl girl, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return ResultUtil.error(1, bindingResult.getFieldError().getDefaultMessage());
@@ -60,6 +67,9 @@ public class GirlController {
 
 	//查询一个女生
 	@GetMapping(value = "/girls/{id}")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "id", value = "女生ID", dataType = "int")
+    )
 	public Girl girlFindOne(@PathVariable("id") Integer id) {
 		return girlRepository.findOne(id);
 	}
